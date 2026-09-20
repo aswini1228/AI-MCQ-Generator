@@ -2,80 +2,152 @@ import streamlit as st
 import os
 from groq import Groq
 
+# -----------------------------
+# Page Configuration
+# -----------------------------
 st.set_page_config(
     page_title="Quizora AI",
     page_icon="🧠",
     layout="centered"
 )
 
+# -----------------------------
+# Custom Header
+# -----------------------------
 st.title("🧠 Quizora AI")
-st.write("Generate AI-powered MCQs from any topic.")
+st.subheader("AI-Powered MCQ Generator")
+st.write(
+    "Generate multiple-choice questions instantly "
+    "from any topic using Artificial Intelligence."
+)
 
-# API Key
+st.divider()
+
+# -----------------------------
+# Get API Key
+# -----------------------------
 api_key = os.getenv("GROQ_API_KEY")
 
 if not api_key:
-    st.warning("GROQ_API_KEY is not configured.")
+    st.error("GROQ_API_KEY is not configured.")
+    st.info("Add your Groq API key in Streamlit Secrets.")
     st.stop()
 
 client = Groq(api_key=api_key)
 
-# User inputs
+# -----------------------------
+# User Inputs
+# -----------------------------
 topic = st.text_input(
-    "Enter Topic",
+    "📚 Enter Topic",
     placeholder="Example: Python OOP"
 )
 
-num_questions = st.selectbox(
-    "Number of Questions",
-    [5, 10, 15, 20]
-)
+col1, col2 = st.columns(2)
 
-difficulty = st.selectbox(
-    "Difficulty",
-    ["Easy", "Medium", "Hard"]
-)
+with col1:
+    num_questions = st.selectbox(
+        "🔢 Number of Questions",
+        [5, 10, 15, 20]
+    )
+
+with col2:
+    difficulty = st.selectbox(
+        "🎯 Difficulty",
+        ["Easy", "Medium", "Hard"]
+    )
 
 question_type = st.selectbox(
-    "Question Type",
-    ["Concept Based", "Application Based", "Mixed"]
+    "❓ Question Type",
+    [
+        "Concept Based",
+        "Application Based",
+        "Scenario Based",
+        "Mixed"
+    ]
 )
 
-if st.button("Generate MCQs"):
+st.divider()
 
-    if not topic:
-        st.error("Please enter a topic.")
+# -----------------------------
+# Generate MCQs
+# -----------------------------
+if st.button("🚀 Generate MCQs", use_container_width=True):
+
+    if not topic.strip():
+        st.warning("Please enter a topic first.")
         st.stop()
 
     prompt = f"""
-Generate {num_questions} multiple-choice questions about {topic}.
+You are an expert educational MCQ generator.
 
-Difficulty: {difficulty}
-Question Type: {question_type}
+Generate {num_questions} high-quality multiple-choice questions
+on the topic: {topic}
+
+Difficulty level: {difficulty}
+Question type: {question_type}
 
 For every question provide:
-1. Question
-2. Four options: A, B, C, D
-3. Correct answer
-4. Short explanation
 
-Make sure the questions are accurate and do not repeat.
+Question:
+A)
+B)
+C)
+D)
+
+Correct Answer:
+Explanation:
+
+Rules:
+- Each question must have exactly four options.
+- Only one option must be correct.
+- Do not repeat questions.
+- Make the questions educational and accurate.
+- The correct answer should not always be the same option.
+- Keep explanations short and clear.
 """
 
-    with st.spinner("Generating questions..."):
+    try:
 
-        response = client.chat.completions.create(
-            model="openai/gpt-oss-20b",
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            temperature=0.7
-        )
+        with st.spinner("🤖 AI is generating your MCQs..."):
 
-    result = response.choices[0].message.content
+            response = client.chat.completions.create(
+                model="openai/gpt-oss-20b",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a professional teacher and "
+                            "MCQ question generator."
+                        )
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0.7
+            )
 
-    st.subheader("Generated MCQs")
-    st.write(result)
+        result = response.choices[0].message.content
+
+        st.success("MCQs generated successfully! 🎉")
+
+        st.divider()
+
+        st.subheader("📝 Generated Questions")
+
+        st.markdown(result)
+
+    except Exception as e:
+
+        st.error("Something went wrong while generating the questions.")
+
+        st.write("Error:", e)
+
+# -----------------------------
+# Footer
+# -----------------------------
+st.divider()
+
+st.caption("Quizora AI • AI-Powered Learning Assistant")
