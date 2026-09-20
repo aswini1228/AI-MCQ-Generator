@@ -4,11 +4,11 @@
 
 Quizora AI is an AI-powered application that generates customized Multiple Choice Questions based on the selected topic, difficulty level, number of questions, and question type.
 
-## 🚀 Live App
+##  Live App
 
 [Try Quizora AI](https://ai-app-generator.streamlit.app/)
 
-## ✨ Features
+##  Features
 
 - AI-generated MCQs
 - Custom topic selection
@@ -21,7 +21,7 @@ Quizora AI is an AI-powered application that generates customized Multiple Choic
 - Short explanations
 - Simple and user-friendly interface
 
-## 🔄 Workflow
+##  Workflow
 
 ```text
 User Input
@@ -41,22 +41,23 @@ Questions + Options
 Correct Answers + Explanations
     ↓
 Display Results
-🛠️ Tech Stack
+
+Tech Stack
 Python
 Streamlit
 Groq API
 Large Language Model (LLM)
-📂 Project Structure
+Project Structure
 AI-App-Generator/
 │
 ├── app.py
 ├── requirements.txt
 └── README.md
-🔐 Security
+ Security
 
 The Groq API key is securely stored using Streamlit Secrets and is not exposed in the source code.
 
-🔮 Future Enhancements
+Future Enhancements
 Interactive quiz mode
 Automatic score calculation
 Quiz timer
@@ -69,7 +70,7 @@ Personalized quizzes
 Download quizzes as PDF
 Leaderboard functionality
 Adaptive question difficulty
-🔗 Links
+ Links
 
 Live App:
 https://ai-app-generator.streamlit.app/
@@ -77,7 +78,7 @@ https://ai-app-generator.streamlit.app/
 GitHub Repository:
 https://github.com/aswini1228/AI-App-Generator
 
-👩‍💻 Author
+Author
 
 Aswini.S
 
