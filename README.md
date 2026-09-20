@@ -52,6 +52,22 @@ The Groq API key is securely stored using Streamlit Secrets and is not exposed i
 Live App: https://ai-app-generator.streamlit.app/
 
 GitHub: https://github.com/aswini1228/AI-App-Generator
+🔮 Future Enhancements
+
+The following features can be added in future versions:
+
+Interactive quiz mode
+Automatic score calculation
+Quiz timer
+PDF-based MCQ generation
+Document-based question generation
+Performance analysis
+Topic-wise weak-area detection
+Quiz history
+Personalized quizzes
+Download quizzes as PDF
+Leaderboard functionality
+Question difficulty adaptation
 
 👩‍💻 Author
 
