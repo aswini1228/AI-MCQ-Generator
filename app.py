@@ -1,4 +1,5 @@
 import streamlit as st
+from groq import Groq
 
 st.set_page_config(
     page_title="Quizora AI",
@@ -35,9 +36,69 @@ question_type = st.selectbox(
     ]
 )
 
-if st.button("Generate MCQs"):
+if st.button("🚀 Generate MCQs"):
 
-    if topic == "":
+    if not topic.strip():
         st.warning("Please enter a topic.")
-    else:
-        st.success("Your MCQs will be generated here!")
+        st.stop()
+
+    try:
+        api_key = st.secrets["GROQ_API_KEY"]
+
+        client = Groq(api_key=api_key)
+
+        prompt = f"""
+Generate {number} multiple-choice questions about {topic}.
+
+Difficulty: {difficulty}
+Question Type: {question_type}
+
+For each question provide:
+
+Question:
+A)
+B)
+C)
+D)
+
+Correct Answer:
+Explanation:
+
+Rules:
+- Exactly four options.
+- Only one correct answer.
+- Do not repeat questions.
+- Make the questions accurate and educational.
+- Give a short explanation.
+"""
+
+        with st.spinner("🤖 Generating MCQs..."):
+
+            response = client.chat.completions.create(
+                model="openai/gpt-oss-20b",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are an expert MCQ generator."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0.7
+            )
+
+        result = response.choices[0].message.content
+
+        st.success("MCQs generated successfully! 🎉")
+
+        st.divider()
+
+        st.subheader("📝 Generated MCQs")
+
+        st.markdown(result)
+
+    except Exception as e:
+        st.error("Unable to generate MCQs.")
+        st.write("Error:", e)
