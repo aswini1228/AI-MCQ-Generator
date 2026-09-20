@@ -12,18 +12,23 @@ Quizora AI is an AI-powered application that generates customized Multiple Choic
 
 - AI-generated MCQs
 - Custom topic selection
-- Easy, Medium, and Hard levels
-- Concept, Application, Scenario, and Mixed questions
+- Easy, Medium, and Hard difficulty levels
+- Concept Based questions
+- Application Based questions
+- Scenario Based questions
+- Mixed question generation
 - Four options with correct answers
 - Short explanations
-- Simple Streamlit interface
+- Simple and user-friendly interface
 
 ## 🔄 Workflow
 
 ```text
 User Input
     ↓
-Topic + Difficulty + Question Type
+Topic + Number of Questions
+    ↓
+Difficulty + Question Type
     ↓
 Prompt Generation
     ↓
@@ -31,15 +36,19 @@ Groq API + AI Model
     ↓
 MCQ Generation
     ↓
-Questions + Answers + Explanations
-Questions + Answers + Explanations
+Questions + Options
+    ↓
+Correct Answers + Explanations
+    ↓
+Display Results
 🛠️ Tech Stack
 Python
 Streamlit
 Groq API
-Large Language Model
+Large Language Model (LLM)
 📂 Project Structure
 AI-App-Generator/
+│
 ├── app.py
 ├── requirements.txt
 └── README.md
@@ -47,15 +56,7 @@ AI-App-Generator/
 
 The Groq API key is securely stored using Streamlit Secrets and is not exposed in the source code.
 
-🔗 Links
-
-Live App: https://ai-app-generator.streamlit.app/
-
-GitHub: https://github.com/aswini1228/AI-App-Generator
 🔮 Future Enhancements
-
-The following features can be added in future versions:
-
 Interactive quiz mode
 Automatic score calculation
 Quiz timer
@@ -67,9 +68,17 @@ Quiz history
 Personalized quizzes
 Download quizzes as PDF
 Leaderboard functionality
-Question difficulty adaptation
+Adaptive question difficulty
+🔗 Links
+
+Live App:
+https://ai-app-generator.streamlit.app/
+
+GitHub Repository:
+https://github.com/aswini1228/AI-App-Generator
 
 👩‍💻 Author
 
 Aswini.S
-BSC CS WITH AI
+
+B.Sc. Computer Science with Artificial Intelligence
